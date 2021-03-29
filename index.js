@@ -1,4 +1,5 @@
 const containerOne = document.querySelector(".container");
+let playersArray = [];
 
 const mainMenu = () => {
   // Title
@@ -41,7 +42,20 @@ const mainMenu = () => {
 };
 
 const startRace = (players) => {
-  let playersArray = [];
+  const menuCarrera = document.createElement('div');
+  const iniciar = document.createElement('button');
+  const reiniciar = document.createElement('button');
+  iniciar.classList.add('btn-send');
+  iniciar.innerText = "Iniciar";
+  iniciar.onclick = () => { correr() };
+  reiniciar.classList.add('btn-send');
+  reiniciar.innerText = "Reiniciar";
+  reiniciar.onclick = () => { correr() };
+  menuCarrera.classList.add('menu-carrera');
+  menuCarrera.appendChild(iniciar);
+  menuCarrera.appendChild(reiniciar);
+  containerOne.appendChild(menuCarrera);
+
   for (let x = 0; x < players; x++) {
     let position = document.createElement("div");
     position.classList.add("road");
@@ -53,10 +67,20 @@ const startRace = (players) => {
     containerOne.appendChild(position);
     //Nos quedamos aqui para añadir estilos a cada coche
     //Añadirlos a un array
-
   }
 
   console.log(playersArray)
 };
+
+const correr = () => {
+  playersArray.map(car => {
+    let duration = Math.random() * (10 - 1) + 1;
+    duration = Math.round(duration);
+    car.style.animationDuration = `${duration}s`
+    car.style.animationName = "carrera"
+  })
+  /* Lo dejamos aqui, a falta de estudiar el transitioned
+  para determinar cuando acaba la animacion */
+}
 
 mainMenu();
