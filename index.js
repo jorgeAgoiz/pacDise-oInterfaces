@@ -1,5 +1,11 @@
 const containerOne = document.querySelector(".container");
 let playersArray = [];
+let positionsArray = [];
+let finalResults = [];
+
+const iniciar = document.createElement('button');
+const reiniciar = document.createElement('button');
+
 
 const mainMenu = () => {
   // Title
@@ -43,18 +49,6 @@ const mainMenu = () => {
 
 const startRace = (players) => {
   const menuCarrera = document.createElement('div');
-  const iniciar = document.createElement('button');
-  const reiniciar = document.createElement('button');
-  iniciar.classList.add('btn-send');
-  iniciar.innerText = "Iniciar";
-  iniciar.onclick = () => { correr() };
-  reiniciar.classList.add('btn-send');
-  reiniciar.innerText = "Reiniciar";
-  reiniciar.onclick = () => { correr() };
-  menuCarrera.classList.add('menu-carrera');
-  menuCarrera.appendChild(iniciar);
-  menuCarrera.appendChild(reiniciar);
-  containerOne.appendChild(menuCarrera);
 
   for (let x = 0; x < players; x++) {
     let position = document.createElement("div");
@@ -62,22 +56,66 @@ const startRace = (players) => {
     let car = document.createElement("img");
     car.className = "vehicles";
     car.src = `./img/car${x + 1}.png`;
+    car.name = x + 1;
     playersArray.push(car);
     position.appendChild(car);
     containerOne.appendChild(position);
     //Nos quedamos aqui para añadir estilos a cada coche
     //Añadirlos a un array
   }
+  iniciar.classList.add('btn-send');
+  iniciar.innerText = "Iniciar";
+  iniciar.style.style = "initial";
+  iniciar.onclick = () => { correr() };
+  reiniciar.classList.add('btn-send');
+  reiniciar.innerText = "Reiniciar";
+  reiniciar.onclick = () => { restartRace() };
+  reiniciar.style.display = "none";
 
-  console.log(playersArray)
+  menuCarrera.classList.add('menu-carrera');
+  menuCarrera.appendChild(iniciar);
+  menuCarrera.appendChild(reiniciar);
+  containerOne.appendChild(menuCarrera);
 };
 
+const restartRace = () => {
+  playersArray.map(car => {
+    car.classList.remove("vehicles-racing")
+  })
+  reiniciar.style.display = "none";
+  iniciar.style.display = "initial";
+
+}
+
 const correr = () => {
+  setTimeout(() => {
+    iniciar.style.display = "none";
+    reiniciar.style.display = "initial";
+  }, 150)
+
+
   playersArray.map(car => {
     let duration = Math.random() * (10 - 1) + 1;
     duration = Math.round(duration);
-    car.style.animationDuration = `${duration}s`
-    car.style.animationName = "carrera"
+    car.classList.add("vehicles-racing");
+    car.style.animationDuration = `${duration}s`;
+
+    car.onanimationend = () => {
+      positionsArray.push(car.name);
+      if (positionsArray.length == playersArray.length) {
+        reiniciar.style.display = "none";
+        iniciar.style.display = "initial";
+        finalResults = positionsArray;
+        positionsArray = [];
+        console.log("hello world")
+        playersArray.map(vehicle => {
+          vehicle.classList.remove("vehicles-racing");
+        })
+
+
+      }
+      console.log(positionsArray)
+    }
   })
   /* Lo dejamos aqui, a falta de estudiar el transitioned
   para determinar cuando acaba la animacion */

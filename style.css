@@ -66,8 +66,11 @@ body {
   margin-left: 0px;
   height: 90%;
   width: 10%;
-  /* animation-name: carrera; */
-  /* animation-duration: 5s; */
+  
+}
+
+.vehicles-racing {
+  animation-name: carrera;
 }
 
 @keyframes carrera {
