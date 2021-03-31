@@ -1,19 +1,22 @@
+// HTML Elements
 const containerOne = document.querySelector(".container");
+const iniciar = document.createElement('button');
+const reiniciar = document.createElement('button');
+const sendNumber = document.createElement("button");
+const menu = document.createElement("div");
+
+// Arrays to store the car elements and final positions
 let playersArray = [];
 let positionsArray = [];
 let finalResults = [];
 
-const iniciar = document.createElement('button');
-const reiniciar = document.createElement('button');
-
-
+//Main function
 const mainMenu = () => {
   // Title
-  const menu = document.createElement("div");
   menu.classList.add("menu");
   menu.innerHTML = "<h1>Menu</h1>";
 
-  // Select players
+  // Select players menu Element
   const selectPlayers = document.createElement("div");
   selectPlayers.innerHTML = `
                             <h2>Selecciona el numero de corredores:</h2>
@@ -29,55 +32,62 @@ const mainMenu = () => {
                                     <option value="8">8</option>
                                 </select>
                             `;
-
-  const sendNumber = document.createElement("button");
+  //Submit players button
   sendNumber.innerText = "Jugar";
   sendNumber.classList.add("btn-send");
 
+  // Event Listener in submit players button
   sendNumber.addEventListener("click", (event) => {
     const prueba = document.querySelector(".selector").value;
-    console.log(prueba)
     const num = prueba;
-    menu.remove();
-    startRace(num);
-    // Aqui le pasamos la funcion de comenzar carrera
+    menu.style.display = "none";//main menu now is hidden
+    startRace(num);//Call the race function
   });
+
+  //Add the elements to the main container
   menu.appendChild(selectPlayers);
   menu.appendChild(sendNumber);
   containerOne.appendChild(menu);
 };
 
-const startRace = (players) => {
+const startRace = (players) => {//Race function
+  //Create a new div element to store all race
   const menuCarrera = document.createElement('div');
 
+  //In this for loop create the number of cars selected
   for (let x = 0; x < players; x++) {
+    // The road
     let position = document.createElement("div");
     position.classList.add("road");
+    //The cars
     let car = document.createElement("img");
     car.className = "vehicles";
     car.src = `./img/car${x + 1}.png`;
-    car.name = x + 1;
+    car.name = x + 1;// Adding a new property to identify the cars
     playersArray.push(car);
+    //Adding car inside the road and road & car inside the main element
     position.appendChild(car);
     containerOne.appendChild(position);
-    //Nos quedamos aqui para añadir estilos a cada coche
-    //Añadirlos a un array
   }
+  //Iniciar Button => styles and events
   iniciar.classList.add('btn-send');
   iniciar.innerText = "Iniciar";
   iniciar.style.style = "initial";
   iniciar.onclick = () => { correr() };
+  //Reiniciar button => styles and events
   reiniciar.classList.add('btn-send');
   reiniciar.innerText = "Reiniciar";
   reiniciar.onclick = () => { restartRace() };
   reiniciar.style.display = "none";
-
+  // Element to store the buttons
   menuCarrera.classList.add('menu-carrera');
   menuCarrera.appendChild(iniciar);
   menuCarrera.appendChild(reiniciar);
+  //Adding element with buttons to main container
   containerOne.appendChild(menuCarrera);
 };
 
+//Event to Reiniciar button
 const restartRace = () => {
   playersArray.map(car => {
     car.classList.remove("vehicles-racing")
@@ -86,12 +96,13 @@ const restartRace = () => {
   iniciar.style.display = "initial";
 
 }
-
+//Event to Iniciar button
 const correr = () => {
+  //Hide Iniciar button and show Reiniciar button when the race starts
   setTimeout(() => {
     iniciar.style.display = "none";
     reiniciar.style.display = "initial";
-  }, 150)
+  }, 100)
 
 
   playersArray.map(car => {
@@ -107,18 +118,17 @@ const correr = () => {
         iniciar.style.display = "initial";
         finalResults = positionsArray;
         positionsArray = [];
-        console.log("hello world")
         playersArray.map(vehicle => {
           vehicle.classList.remove("vehicles-racing");
         })
 
-
       }
-      console.log(positionsArray)
     }
+    console.log(positionsArray)
   })
-  /* Lo dejamos aqui, a falta de estudiar el transitioned
-  para determinar cuando acaba la animacion */
 }
 
 mainMenu();
+
+/* Mostrar resultados de la carrera y boton para refrescar la aplicacion y volver
+a elegir numero de coches  */
