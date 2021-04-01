@@ -56,6 +56,9 @@ const startRace = (players) => {//Race function
 
   //In this for loop create the number of cars selected
   for (let x = 0; x < players; x++) {
+    let dorsal = document.createElement("div");
+    dorsal.innerHTML = `<p>${x + 1}</p>`;
+    dorsal.classList.add("dorsal");
     // The road
     let position = document.createElement("div");
     position.classList.add("road");
@@ -66,7 +69,9 @@ const startRace = (players) => {//Race function
     car.name = x + 1;// Adding a new property to identify the cars
     playersArray.push(car);
     //Adding car inside the road and road & car inside the main element
+
     position.appendChild(car);
+    position.appendChild(dorsal);
     containerOne.appendChild(position);
   }
   //Iniciar Button => styles and events
@@ -104,6 +109,7 @@ const correr = () => {
     reiniciar.style.display = "initial";
   }, 100)
 
+  const tablePositions = document.createElement("div");
 
   playersArray.map(car => {
     let duration = Math.random() * (10 - 1) + 1;
@@ -122,9 +128,30 @@ const correr = () => {
           vehicle.classList.remove("vehicles-racing");
         })
 
+        let coches = document.querySelectorAll(".road");
+        coches.forEach(coche => {
+          coche.style.display = "none";
+        })
+
+        console.log(finalResults)
+
+        for (let x = 0; x < finalResults.length; x++) {
+          let pos = document.createElement("div");
+          pos.classList.add("posiciones");
+          pos.innerHTML = `<p>Posicion ${x + 1} : Coche ${finalResults[x]}</p></br>`;
+          tablePositions.appendChild(pos);
+        }
+        containerOne.appendChild(tablePositions);
+
+        setTimeout(() => {
+          tablePositions.remove();
+          coches.forEach(coche => {
+            coche.style.display = "initial";
+          })
+        }, 3000);
+
       }
     }
-    console.log(positionsArray)
   })
 }
 
