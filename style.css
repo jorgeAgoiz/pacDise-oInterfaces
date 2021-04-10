@@ -16,9 +16,11 @@ body {
   justify-content: center;
 }
 
-.container h1 {
+#menuTitle {
   font-size: 4rem;
   color: rgb(182, 6, 6);
+  text-align: center;
+  animation: moveFromLeft 1.5s ease-out;
 }
 .container h2 {
   font-size: 2rem;
@@ -78,17 +80,36 @@ body {
   height: 74%;
   width: 7%;
 }
-/* Estilo que contiene la animacion */
-.vehicles-racing {
-  animation-name: carrera;
-}
 /* Estilo para la lista de posiciones final */
-.posiciones p{
+.posiciones p {
   font-size: 0.9rem;
   text-align: center;
 }
-/* Esta es la animacion */
-@keyframes carrera {
-  0% {margin-left: 0%;}
-  100% {margin-left: 90%;}
+#positionsTitle {
+  font-size: 4rem;
+  color: rgb(35, 122, 204);
+  text-align: center;
+  animation: moveFromRigth 1.5s ease-out;
+}
+
+@keyframes moveFromLeft {
+  0% {
+    opacity: 0;
+    transform: translateX(-16rem);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes moveFromRigth {
+  0% {
+    opacity: 0;
+    transform: translateX(16rem);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
 }
