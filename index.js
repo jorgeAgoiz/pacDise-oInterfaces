@@ -70,8 +70,8 @@ const startRace = (players) => {
     car.src = `./img/car${x + 1}.png`;
     car.name = x + 1; // Añadimos una propiedad para identificarlo mas facilmente
     playersArray.push(car);
-    //Añadimos el coche dentro de la carretera
 
+    //Añadimos el coche dentro de la carretera
     position.appendChild(car);
     containerOne.appendChild(dorsal);
     containerOne.appendChild(position);
@@ -94,7 +94,7 @@ const startRace = (players) => {
   reiniciar.id = "restart-race";
   reiniciar.innerText = "Reiniciar";
   reiniciar.style.display = "none";
-  // ****************** JQuery *********************
+  // ************************************** JQuery *********************
   // Funcion para reiniciar la carrera
   $(document).ready(function () {
     $("#restart-race").click(function () {
@@ -109,7 +109,7 @@ const startRace = (players) => {
       changeCars.style.display = "initial";
     });
   });
-  // **********************************************
+  // ******************************************************************
 
   // Elemento donde colocar los buttons
   menuCarrera.classList.add("menu-carrera");
@@ -191,7 +191,7 @@ const startRace = (players) => {
     });
   });
 
-  // *********************************************************
+  // **********************************************************************
 };
 
 //Ejecutamos la funcion al cargar el archivo javascript
