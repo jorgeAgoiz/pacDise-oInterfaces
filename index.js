@@ -65,8 +65,8 @@ const startRace = (players) => {
     position.classList.add("road");
     // Los coches
     let car = document.createElement("img");
-    car.className = "vehicles";
-    car.className = `jquery-race${x}`;
+    car.classList.add("vehicles");
+    car.classList.add(`jquery-race${x}`);
     car.src = `./img/car${x + 1}.png`;
     car.name = x + 1; // Añadimos una propiedad para identificarlo mas facilmente
     playersArray.push(car);
@@ -77,7 +77,7 @@ const startRace = (players) => {
     containerOne.appendChild(position);
   }
 
-  //Iniciar Button => estilos y ventos
+  //Iniciar Button => estilos y eventos
   iniciar.classList.add("btn-send");
   iniciar.innerText = "Iniciar";
   iniciar.id = "race-btn";
